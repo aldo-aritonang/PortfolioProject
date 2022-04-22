@@ -11,7 +11,7 @@ where continent is not null
 order by 3,4
 
 
---Tampilkan data yang ingin kita mulai
+--Tampilkan data yang diperlukan
 
 select Location, date, total_cases, new_cases, total_deaths, population
 from PortofolioProject..CovidDeaths
@@ -92,7 +92,7 @@ order by 1,2
 --Menampilkan persentasi dari populasi yang sudah menerima vaksin (Setidaknya vaksin pertama)
 
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations, 
-sum(cast(vac.new_vaccinations as int)) over (partition by dea.location order by dea.location, dea.date) as RollingPeopleVaccinated
+sum(convert(int, vac.new_vaccinations)) over (partition by dea.location order by dea.location, dea.date) as RollingPeopleVaccinated
 From PortofolioProject..CovidDeaths dea
 Join PortofolioProject..CovidVaccinations vac
 	On dea.location = vac.location
